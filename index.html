@@ -8,10 +8,11 @@
     body { margin:0; padding:0; font-family: Arial, sans-serif; line-height:1.6; }
     header { text-align:center; background:#007bff; color:white; padding:30px 10px; }
     header img { height:100px; background:white; padding:10px; border-radius:10px; margin-bottom:10px; }
-    .products { padding:20px; background:#f8f9fa; }
-    .product { padding:20px; border-radius:10px; margin-bottom:15px; background:white; }
-    .btn { background:green; color:white; padding:12px; border-radius:5px; text-decoration:none; display:block; text-align:center; margin-top:10px; }
+    .products { padding:40px 20px; background:#f8f9fa; }
+    .product { padding:20px; border-radius:10px; margin:15px auto; max-width:500px; background:white; border:2px solid #ddd; }
+    .btn { background:#25D366; color:white; padding:12px; border-radius:5px; text-decoration:none; display:block; text-align:center; margin-top:10px; font-weight:bold; }
     footer { padding:20px; background:#333; color:white; text-align:center; }
+    h2 { text-align:center; color:#007bff; }
   </style>
 </head>
 <body>
@@ -24,48 +25,74 @@
 </header>
 
 <div class="products">
-  <h2 style="text-align:center; color:#007bff;">OUR SERVICES</h2>
+  <h2>OUR PACKAGES</h2>
 
-  <div class="product" style="border:2px solid #007bff;">
-    <h3>ThinkSchool MIS - Up to 500 Students</h3>
+  <!-- PACKAGE A -->
+  <div class="product">
+    <h3>PACKAGE A: Small Schools ≤ 500 Students</h3>
+    <p><b>Option 1:</b> One Time = <span style="color:#28a745; font-size:24px;">Ksh 35,000</span> <span style="color:green;">Save 5,500</span></p>
+    <p><b>Option 2:</b> Termly = Ksh 13,500 x 3 Terms = <b>Ksh 40,500 Total</b></p>
+    <p><small>Pay 13,500 at start of each term</small></p>
     <ul>
-      <li>Fees, Exams, Attendance, SMS</li>
-      <li>Installation Services</li>
-      <li>Schools & Businesses</li>
-      <li>Training</li>
+      <li>✓ Fees Management & Receipting</li>
+      <li>✓ Exams, Results & Report Cards</li>
+      <li>✓ Student & Staff Records + Attendance</li>
+      <li>✓ SMS to Parents for Fees & Absentee</li>
+      <li>✓ Full Installation + Data Migration from Excel</li>
+      <li>✓ Training for 2 Teachers</li>
+      <li>✓ 6 Months Free Technical Support</li>
     </ul>
-    <p><b>Ksh 35,000</b> <span style="color:green;">Save 5,500</span></p>
-    <p><b>Ksh 13,500 x 3 Terms = Ksh 40,500 Total</b></p>
     <a href="https://wa.me/254707649890?text=Hi%20ThinkPlus%20I%20want%20Package%20A%20MIS" class="btn">Order on WhatsApp</a>
   </div>
 
-  <div class="product" style="border:2px solid #28a745;">
-    <h3>ThinkSchool MIS - Up to 1000 Students</h3>
+  <!-- PACKAGE B -->
+  <div class="product">
+    <h3>PACKAGE B: Large Schools > 500 Students</h3>
+    <p><b>Option 1:</b> One Time = <span style="color:#28a745; font-size:24px;">Ksh 50,000</span> <span style="color:green;">Save 7,000</span></p>
+    <p><b>Option 2:</b> Termly = Ksh 19,000 x 3 Terms = <b>Ksh 57,000 Total</b></p>
+    <p><small>Pay 19,000 at start of each term</small></p>
     <ul>
-      <li>Receipting</li>
-      <li>Report Cards</li>
-      <li>Reports + Attendance</li>
-      <li>Data Migration from Excel</li>
-      <li>Teachers</li>
-      <li>Technical Support</li>
+      <li>✓ Everything in Package A</li>
+      <li>✓ Receipting</li>
+      <li>✓ Report Cards</li>
+      <li>✓ Advanced Reports</li>
+      <li>✓ Data Migration from Excel</li>
+      <li>✓ Technical Support</li>
     </ul>
-    <p><b>Ksh 50,000</b> <span style="color:green;">Save 7,900</span></p>
-    <p><b>Ksh 19,000 x 3 Terms = Ksh 57,000 Total</b></p>
- <a href="https://wa.me/254707649890?text=Hi%20ThinkPlus%20I%20want%20Package%20B%20MIS" class="btn">Order on WhatsApp</a>
+    <a href="https://wa.me/254707649890?text=Hi%20ThinkPlus%20I%20want%20Package%20B%20MIS" class="btn">Order on WhatsApp</a>
   </div>
 
   <!-- IMPORTANT NOTE -->
-  <div style="background:#fff3cd; padding:15px; border-radius:8px; border-left:5px solid #ffc107; margin-bottom:10px;">
+  <div style="background:#fff3cd; padding:15px; border-radius:8px; border-left:5px solid #ffc107; margin:20px auto; max-width:800px;">
     <b>💡 Why Choose Us?</b> After 1 year the system is 100% yours. 
     <br>No yearly license fees. You pay ONCE.
     <br><small>Optional: Technical Support & Updates = Ksh 5,000/month</small>
   </div>
 
-  <div style="background:#d4edda; padding:15px; border-radius:8px; border-left:5px solid #28a745;">
+  <div style="background:#d4edda; padding:15px; border-radius:8px; border-left:5px solid #28a745; margin:20px auto; max-width:800px;">
     <b>💰 It's an Investment:</b> If you recover just 7 lost fees, 
     <br>the system has already paid for itself.
   </div>
 </div>
+
+<!-- ABOUT US -->
+<section style="padding:40px 20px;">
+  <h2>About Us</h2>
+  <p style="text-align:center; max-width:700px; margin:auto;">
+    <b>ThinkPlus Tech</b> - Electrical Installation Services and Development of Management Information Systems.<br>
+    <b>Proprietor:</b> Joseph Mbui Mwambui
+  </p>
+</section>
+
+<!-- CONTACT US -->
+<section style="padding:40px 20px; background:#f8f9fa;">
+  <h2>Contact Us</h2>
+  <p style="text-align:center;">
+    <b>M-PESA / WhatsApp:</b> 0707 649 890<br>
+    <b>Email:</b> info@thinkplus.com<br>
+    <b>Address:</b> Kaloleni, Kilifi County, P.O BOX 80108
+  </p>
+</section>
 
 <footer>
   <p>Electrical Installation Services and Development of Management Information Systems.</p>
