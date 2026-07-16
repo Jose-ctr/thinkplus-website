@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Students - ThinkPlus</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="flex bg-gray-100">
+
+  <!-- SIDE MENU - SAME AS DASHBOARD -->
+  <aside class="w-64 bg-gray-900 text-white h-screen p-4 fixed left-0 top-0">
+    <h2 class="text-2xl font-bold mb-8">ThinkPlus</h2>
+    <ul class="space-y-4">
+      <li><a href="dashboard.html" class="block p-2 hover:bg-gray-800 rounded">📊 Dashboard</a></li>
+      <li><a href="students.html" class="block p-2 bg-gray-800 rounded">👨‍🎓 Students</a></li>
+      <li><a href="#" class="block p-2 hover:bg-gray-800 rounded">💰 Fees</a></li>
+      <li><a href="#" class="block p-2 hover:bg-gray-800 rounded">👨‍🏫 Teachers</a></li>
+      <li><a href="#" class="block p-2 hover:bg-gray-800 rounded">📈 Reports</a></li>
+    </ul>
+  </aside>
+
+  <!-- MAIN CONTENT -->
+  <main class="flex-1 p-6 ml-64">
+    <div class="flex justify-between items-center mb-6">
+      <h1 class="text-3xl font-bold">Students Management</h1>
+      <button class="bg-blue-500 text-white px-4 py-2 rounded-lg">+ Add Student</button>
+    </div>
+
+    <!-- STUDENTS TABLE -->
+    <div class="bg-white p-6 rounded-xl shadow">
+      <table class="w-full">
+        <thead>
+          <tr class="border-b text-left">
+            <th class="p-3">Adm No</th>
+            <th class="p-3">Name</th>
+            <th class="p-3">Class</th>
+            <th class="p-3">Fee Balance</th>
+            <th class="p-3">Action</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr class="border-b">
+            <td class="p-3">001</td>
+            <td class="p-3">Amina Juma</td>
+            <td class="p-3">Class 8</td>
+            <td class="p-3 text-red-500">KSh 5,000</td>
+            <td class="p-3"><button class="text-blue-500">Edit</button></td>
+          </tr>
+          <tr class="border-b">
+            <td class="p-3">002</td>
+            <td class="p-3">John Kamau</td>
+            <td class="p-3">Class 7</td>
+            <td class="p-3 text-green-500">KSh 0</td>
+            <td class="p-3"><button class="text-blue-500">Edit</button></td>
+          </tr>
+          <tr class="border-b">
+            <td class="p-3">003</td>
+            <td class="p-3">Faith Achieng</td>
+            <td class="p-3">Class 8</td>
+            <td class="p-3 text-red-500">KSh 12,000</td>
+            <td class="p-3"><button class="text-blue-500">Edit</button></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </main>
+</body>
+</html>
