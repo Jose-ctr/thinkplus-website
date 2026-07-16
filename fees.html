@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Fees - ThinkPlus</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="flex bg-gray-100">
+
+  <!-- SIDE MENU -->
+  <aside class="w-64 bg-gray-900 text-white h-screen p-4 fixed">
+    <h2 class="text-2xl font-bold mb-8">ThinkPlus</h2>
+    <ul class="space-y-4">
+      <li><a href="dashboard.html" class="block p-2 hover:bg-gray-800 rounded">📊 Dashboard</a></li>
+      <li><a href="students.html" class="block p-2 hover:bg-gray-800 rounded">👨‍🎓 Students</a></li>
+      <li><a href="fees.html" class="block p-2 bg-gray-800 rounded">💰 Fees</a></li>
+      <li><a href="#" class="block p-2 hover:bg-gray-800 rounded">👨‍🏫 Teachers</a></li>
+    </ul>
+  </aside>
+
+  <!-- MAIN CONTENT -->
+  <main class="flex-1 p-6 ml-64">
+    <h1 class="text-3xl font-bold mb-6">Fees Management</h1>
+    
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-6">
+      <div class="bg-green-500 text-white p-6 rounded-xl">
+        <h3>Total Collected</h3><p class="text-2xl font-bold">KSh 1,250,000</p>
+      </div>
+      <div class="bg-red-500 text-white p-6 rounded-xl">
+        <h3>Total Balance</h3><p class="text-2xl font-bold">KSh 480,000</p>
+      </div>
+      <div class="bg-blue-500 text-white p-6 rounded-xl">
+        <h3>Term Fee</h3><p class="text-2xl font-bold">KSh 10,000</p>
+      </div>
+    </div>
+
+    <div class="bg-white p-6 rounded-xl shadow">
+      <h2 class="font-bold mb-4">Recent Payments</h2>
+      <table class="w-full">
+        <tr class="border-b"><td class="p-3">15 Apr 2026</td><td class="p-3">Amina Juma</td><td class="p-3 text-green-600">KSh 5,000</td></tr>
+        <tr class="border-b"><td class="p-3">14 Apr 2026</td><td class="p-3">John Kamau</td><td class="p-3 text-green-600">KSh 10,000</td></tr>
+      </table>
+    </div>
+  </main>
+</body>
+</html>
