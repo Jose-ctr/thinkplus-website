@@ -76,7 +76,11 @@ table td, table th {
   font-size: 13px !important;
 }
 
-
+/* Force table wrapper to not break layout */
+section div[style*="overflow"] {
+  width: 100% !important;
+  max-width: 100% !important;
+}
 
 
 } /* CLOSE @media */
