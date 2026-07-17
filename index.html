@@ -118,7 +118,14 @@ section div[style*="overflow"] {
   animation: spin 1s linear infinite;
 }
 @keyframes spin { to { transform: rotate(360deg); } }
-
+  
+/* MOBILE RESPONSIVE */
+@media screen and (max-width: 768px) {
+  div[style*="display: flex"] { display: block !important; }
+  div[style*="flex: 1 1"] { width: 100% !important; margin-bottom: 20px !important; }
+  #hero h1 { font-size: 28px !important; }
+  #hero h3 { font-size: 22px !important; }
+}
 } /* CLOSE @media */
 
     </style>
@@ -316,19 +323,36 @@ section div[style*="overflow"] {
 <!-- FOOTER -->
 <footer style="background: #1a1a1a; color: #e0e0e0; padding: 40px 20px;">
   <div style="max-width: 1200px; margin: 0 auto; display: flex; flex-wrap: wrap; gap: 40px; justify-content: space-between;">
-    <div style="flex: 1 1 250px;">
-      <h3 style="color: #ff6b35; margin-bottom: 15px;">ThinkPlus</h3>
-      <p>Empowering Education Through Technology</p>
-      <p style="color: #0056D6; font-weight: bold;">The #1 School Management System in Kenya</p>
-      <a href="https://wa.me/254707649890" style="display: inline-block; background: #25D366; color: white; padding: 10px 20px; border-radius: 5px; text-decoration: none; margin-top: 10px;">WhatsApp Us</a>
-    </div>
-    <div style="flex: 1 1 250px;">
-      <h3 style="color: #0056D6; margin-bottom: 15px;">Contact Us</h3>
-      <p>📱 WhatsApp: 0707 649 890</p>
-      <p>💰 M-PESA: 0707 649 890</p>
-      <p>📧 Email: info@thinkplus.co.ke</p>
-      <p>📍 Address: Kaloleni, Kilifi County</p>
-    </div>
-    <div style="flex: 1 1 250px;">
-      <h3 style="color: #0056D6; margin-bottom: 15px;">Quick Links</h3>
-      <p><a href="#home" style="color: #e0e0e0; text-decoration: none;">Home</                
+<div style="flex: 1 1 250px;">
+  <h3 style="color: #ffb35; margin-bottom: 15px;">ThinkPlus</h3>
+  <p>Empowering Education Through Technology</p>
+  <p style="color: #0056D6; font-weight: bold;">School Management System in Kenya</p>
+  <a href="https://wa.me/254707649890" style="display: inline-block; background: #25D366; color: white; padding: 10px 20px; border-radius: 5px; text-decoration: none; margin-top: 10px;">Contact Us</a>
+</div>
+
+<div style="flex: 1 1 250px;">
+  <h3 style="color: #0056D6; margin-bottom: 15px;">Contact</h3>
+  <p>📱 WhatsApp: 0707 649 890</p>
+  <p>💰 M-PESA: 0707 649 890</p>
+  <p>📧 Email: info@thinkplus.co.ke</p>
+  <p>📍 Address: Kaloleni, Kilifi County</p>
+</div>
+
+<div style="flex: 1 1 250px;">
+  <h3 style="color: #0056D6; margin-bottom: 15px;">Quick Links</h3>
+  <p><a href="#home" style="color: #e0e0e0; text-decoration: none;">Home</a></p>
+  <p><a href="#about" style="color: #e0e0e0; text-decoration: none;">About</a></p>
+  <p><a href="#services" style="color: #e0e0e0; text-decoration: none;">Services</a></p>
+</div>
+</div>
+</footer>
+
+   <script>
+window.addEventListener("load", function(){
+  setTimeout(function(){
+    document.getElementById("loader").style.display = "none";
+  }, 2000); // hides after 2 seconds
+});
+</script> 
+    </body>
+  </html>
