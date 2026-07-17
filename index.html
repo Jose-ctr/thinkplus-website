@@ -35,7 +35,20 @@
     max-width: 100% !important;
     margin: 0 0 20px 0 !important;
   }
-
+/* Fix mobile menu */
+nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px !important;
+}
+.menu-toggle {
+  font-size: 28px !important;
+  cursor: pointer;
+  background: none;
+  border: none;
+  color: #fff; /* Changed to white so it shows on your blue gradient */
+}
   /* Remove white bars */
   div[style*="max-width: 1200px"] {
     padding: 0 15px !important;
