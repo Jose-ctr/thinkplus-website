@@ -38,6 +38,38 @@ img {
   div[style*="max-width:"] {
     width: 100% !important;
     max-width: 100% !important;
+      /* Remove white bars completely */
+  div[style*="max-width: 1200px"] {
+    padding: 0 15px !important;
+    margin: 0 auto !important;
+  }
+  
+  /* Make tables scroll sideways on mobile */
+  table {
+    display: block;
+    width: 100%;
+    overflow-x: auto;
+    white-space: nowrap;
+  }
+  
+  /* Center footer content */
+  footer > div {
+    display: block !important;
+    text-align: center !important;
+  }
+  
+  /* Make hero text smaller on mobile */
+  h1 { font-size: 26px !important; line-height: 1.3 !important; }
+  h2 { font-size: 22px !important; }
+  
+  /* Make WhatsApp button smaller */
+  a[style*="position: fixed"] {
+    bottom: 15px !important;
+    right: 15px !important;
+    padding: 12px 16px !important;
+    font-size: 14px !important;
+  }
+  }
     margin-bottom: 20px !important;
   }
   
