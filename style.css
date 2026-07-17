@@ -116,3 +116,52 @@ footer {
     padding: 20px;
     margin-top: 40px;
 }
+
+/* ========== MOBILE RESPONSIVE FIX ========== */
+@media (max-width: 768px) {
+  
+  /* FIX HEADER + MENU */
+  header {
+    padding: 10px 15px !important;
+    text-align: left !important;
+  }
+  
+  header nav a {
+    display: none; /* Hide desktop links */
+  }
+  
+  .menu-toggle {
+    display: block !important;
+    font-size: 28px;
+    cursor: pointer;
+    background: none;
+    border: none;
+    color: #fff;
+    position: absolute;
+    right: 20px;
+    top: 20px;
+  }
+
+  /* FORCE CARDS TO STACK VERTICALLY */
+  div[style*="display: flex"],
+  div[style*="display: grid"] {
+    display: block !important;
+  }
+
+  /* MAKE ALL CARDS FULL WIDTH */
+  div[style*="flex: 1 1"],
+  div[style*="border: 3px solid"],
+  div[style*="border: 2px solid"] {
+    width: 100% !important;
+    max-width: 100% !important;
+    margin: 0 0 20px 0 !important;
+  }
+
+  /* FIX HERO SECTION */
+  .hero {
+    padding: 60px 20px !important;
+  }
+  
+  .hero h1 { font-size: 28px !important; }
+  .hero h3 { font-size: 22px !important; }
+}
