@@ -27,14 +27,14 @@
 
     /* Make all grids and flex stack */
     div[style*="display: flex"], 
-    div[style*="display: grid"] {
+    
       display: block !important;
     }
     
     /* Make all cards full width */
     div[style*="flex: 1 1"], 
     div[style*="max-width:"] {
-      width: 100% !important;
+      width: 100% !<div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; overflow: hidden;">important;
       max-width: 100% !important;
       margin-bottom: 20px !important;
     }
