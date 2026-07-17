@@ -9,131 +9,57 @@
  <style>
   /* RESET */
     * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-  }
-  body {
-    font-family: Arial, sans-serif;
-    overflow-x: hidden;
-    background: #f5f7fa;
+
+      @media (max-width: 768px) {
+  section {
+    padding: 40px 15px !important;
   }
 
-  /* MOBILE RESPONSIVE - FINAL FIX */
-  @media (max-width: 768px) {
-    section {
-      padding: 40px 15px !important;
-    }
-
-    /* Make all grids and flex stack */
-    div[style*="display: flex"], 
-    
-      display: block !important;
-    }
-    
-    /* Make all cards full width */
-    div[style*="flex: 1 1"], 
-    div[style*="max-width:"] {
-      width: 100% !<div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; overflow: hidden;">important;
-      max-width: 100% !important;
-      margin-bottom: 20px !important;
-    }
-
-    /* Fix package cards - remove overlap */
-    div[style*="border: 3px solid"], 
-    div[style*="border: 2px solid"] {
-      margin: 0 0 20px 0 !important;
-      width: 100% !important;
-    }
-    
-    /* Remove white bars on sides */
-    div[style*="max-width: 1200px"] {
-      padding: 0 15px !important;
-      margin: 0 auto !important;
-    }
-
-    /* Make tables scrollable */
-    table {
-      display: block;
-      width: 100%;
-      overflow-x: auto;
-      white-space: nowrap;
-    }
-    table td, table th {
-      padding: 10px 8px !important;
-      font-size: 13px !important;
-    }
-
-    /* Center footer */
-    footer { 
-      padding: 30px 15px !important; 
-      text-align: center !important;
-    }
-
-    /* Smaller text */
-    h1 { font-size: 26px !important; }
-    h2 { font-size: 22px !important; }
-  }
-</style>
-    margin: 0 auto !important;
+  /* Force all flex and grid to stack vertically */
+  div[style*="display: flex"], 
+  div[style*="display: grid"] {
+    display: block !important;
   }
   
-  /* Make tables scroll sideways on mobile */
+  /* Make all stat cards and package cards full width */
+  div[style*="flex: 1 1"], 
+  div[style*="max-width:"],
+  div[style*="border: 3px solid"], 
+  div[style*="border: 2px solid"] {
+    width: 100% !important;
+    max-width: 100% !important;
+    margin: 0 0 20px 0 !important;
+  }
+
+  /* Remove white bars on left and right */
+  div[style*="max-width: 1200px"] {
+    padding: 0 15px !important;
+    margin: 0 auto !important;
+  }
+
+  /* Make tables scroll */
   table {
     display: block;
     width: 100%;
     overflow-x: auto;
     white-space: nowrap;
   }
-  
-  /* Center footer content */
-  footer > div {
-    display: block !important;
+  table td, table th {
+    padding: 10px 8px !important;
+    font-size: 13px !important;
+  }
+
+  /* Center footer */
+  footer { 
+    padding: 30px 15px !important; 
     text-align: center !important;
   }
-  
-  /* Make hero text smaller on mobile */
-  h1 { font-size: 26px !important; line-height: 1.3 !important; }
-  h2 { font-size: 22px !important; }
-  
-  /* Make WhatsApp button smaller */
-  a[style*="position: fixed"] {
-    bottom: 15px !important;
-    right: 15px !important;
-    padding: 12px 16px !important;
-    font-size: 14px !important;
-  }
-  }
-    margin-bottom: 20px !important;
-  }
-  /* Make hero text smaller on mobile */
-h1 { font-size: 28px !important; }
-h2 { font-size: 24px !important; }
 
-/* Make tables scroll horizontally */
-table {
-  display: block;
-  overflow-x: auto;
-  white-space: nowrap;
-}
-
-/* Center footer content */
-footer > div {
-  display: block !important;
-  text-align: center !important;
-}
-
-/* Remove white bars on sides */
-div[style*="max-width: 1200px"] {
-  padding: 0 15px !important;
-}
-  /
-    body { margin:0; padding:0; font-family: Arial, sans-serif; line-height:1.6; scroll-behavior: smooth; }
-    h1, h2, h3 { margin-top: 0; }
-    .btn { background: #FF6B00; color: white; padding: 16px 32px; border-radius: 8px; text-decoration: none; display: inline-block; font-weight: bold; }
-    .btn:hover { background: #e55f00; }
-    .card { background: white; padding: 20px; border-radius: 8px; box-shadow: 0 2px 5px rgba(0,0,0,0.1); }
-</style>
+  /* Bigger text for stats on mobile */
+  h2 { font-size: 28px !important; }
+  h1 { font-size: 26px !important; }
+      }
+    </style>
 </head>
 <body>
 
