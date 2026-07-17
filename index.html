@@ -6,6 +6,63 @@
   <title>ThinkPlus Tech - School Management System Kenya</title>
       <meta name="description" content="ThinkPlus MIS - School Management System in Kenya. Manage Fees, Exams, SMS, Report Cards. Pay once, no yearly fees.">
   <style>
+    /* RESET */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+body {
+  font-family: Arial, sans-serif;
+  overflow-x: hidden;
+}
+img {
+  max-width: 100%;
+  height: auto;
+}
+
+/* MOBILE RESPONSIVE - HII ITAFIX ZOTE */
+@media (max-width: 768px) {
+  section {
+    padding: 40px 15px !important;
+  }
+  
+  /* Fanya grids zishuke chini */
+  div[style*="display: flex"], 
+  div[style*="display: grid"] {
+    display: block !important;
+  }
+  
+  /* Cards zote ziwe full width */
+  div[style*="flex: 1 1"], 
+  div[style*="max-width:"] {
+    width: 100% !important;
+    max-width: 100% !important;
+    margin-bottom: 20px !important;
+  }
+  
+  /* Hero text iwe ndogo kidogo */
+  h1 { font-size: 28px !important; }
+  h2 { font-size: 24px !important; }
+  
+  /* Tables ziscroll horizontally */
+  table {
+    display: block;
+    overflow-x: auto;
+    white-space: nowrap;
+  }
+  
+  /* Footer iwe center */
+  footer > div {
+    display: block !important;
+    text-align: center !important;
+  }
+  
+  /* Ondoa hizo white bars */
+  div[style*="max-width: 1200px"] {
+    padding: 0 15px !important;
+  }
+}
     body { margin:0; padding:0; font-family: Arial, sans-serif; line-height:1.6; scroll-behavior: smooth; }
     h1, h2, h3 { margin-top: 0; }
     .btn { background: #FF6B00; color: white; padding: 16px 32px; border-radius: 8px; text-decoration: none; display: inline-block; font-weight: bold; }
