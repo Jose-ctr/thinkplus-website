@@ -6,41 +6,75 @@
   <title>ThinkPlus Tech - School Management System Kenya</title>
       <meta name="description" content="ThinkPlus MIS - School Management System in Kenya. Manage Fees, Exams, SMS, Report Cards. Pay once, no yearly fees.">
   <style>
-    /* RESET */
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
-body {
-  font-family: Arial, sans-serif;
-  overflow-x: hidden;
-}
-img {
-  max-width: 100%;
-  height: auto;
-}
+ <style>
+  /* RESET */
+    * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+  body {
+    font-family: Arial, sans-serif;
+    overflow-x: hidden;
+    background: #f5f7fa;
+  }
 
-/* MOBILE RESPONSIVE - HII ITAFIX ZOTE */
-@media (max-width: 768px) {
-  section {
-    padding: 40px 15px !important;
+  /* MOBILE RESPONSIVE - FINAL FIX */
+  @media (max-width: 768px) {
+    section {
+      padding: 40px 15px !important;
+    }
+
+    /* Make all grids and flex stack */
+    div[style*="display: flex"], 
+    div[style*="display: grid"] {
+      display: block !important;
+    }
+    
+    /* Make all cards full width */
+    div[style*="flex: 1 1"], 
+    div[style*="max-width:"] {
+      width: 100% !important;
+      max-width: 100% !important;
+      margin-bottom: 20px !important;
+    }
+
+    /* Fix package cards - remove overlap */
+    div[style*="border: 3px solid"], 
+    div[style*="border: 2px solid"] {
+      margin: 0 0 20px 0 !important;
+      width: 100% !important;
+    }
+    
+    /* Remove white bars on sides */
+    div[style*="max-width: 1200px"] {
+      padding: 0 15px !important;
+      margin: 0 auto !important;
+    }
+
+    /* Make tables scrollable */
+    table {
+      display: block;
+      width: 100%;
+      overflow-x: auto;
+      white-space: nowrap;
+    }
+    table td, table th {
+      padding: 10px 8px !important;
+      font-size: 13px !important;
+    }
+
+    /* Center footer */
+    footer { 
+      padding: 30px 15px !important; 
+      text-align: center !important;
+    }
+
+    /* Smaller text */
+    h1 { font-size: 26px !important; }
+    h2 { font-size: 22px !important; }
   }
-  
-  /* Fanya grids zishuke chini */
-  div[style*="display: flex"], 
-  div[style*="display: grid"] {
-    display: block !important;
-  }
-  
-  /* Cards zote ziwe full width */
-  div[style*="flex: 1 1"], 
-  div[style*="max-width:"] {
-    width: 100% !important;
-    max-width: 100% !important;
-      /* Remove white bars completely */
-  div[style*="max-width: 1200px"] {
-    padding: 0 15px !important;
+</style>
     margin: 0 auto !important;
   }
   
