@@ -44,7 +44,7 @@
 
   <script type="module">
     import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
-    import { getFirestore, collection, addDoc, deleteDoc, doc, onSnapshot } 
+    import { getFirestore, collection, addDoc, deleteDoc, doc, onSnapshot, updateDoc } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js"
     from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
 
     // YOUR FIREBASE CONFIG - thinkplus-kilifi
@@ -54,7 +54,7 @@
       projectId: "thinkplus-kilifi",
       storageBucket: "thinkplus-kilifi.firebasestorage.app",
       messagingSenderId: "1067934190834",
-      appId: "1:1067934190834:web:e9b5983b220a3ad7ae146b",
+      appId: "1:1067934190834:web:e9b5983b9220a3ad7ae146b",
       measurementId: "G-88DV0V8N6Y"
     };
 
@@ -84,7 +84,7 @@
       if(confirm("Delete this student?")) {
         await deleteDoc(doc(db, "students", id));
       }
-    }
+    }6⁶66
 
     onSnapshot(studentsCol, (snapshot) => {
       const tbody = document.getElementById('studentsBody');
