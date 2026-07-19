@@ -108,21 +108,25 @@ const data = {
 
 // UPDATE NUMBERS ON PAGE
 if(role && data[role]){
-  document.querySelectorAll('.text-3xl')[0].innerText = data[role].total;
-  document.querySelectorAll('.text-3xl')[1].innerText = data[role].collected;
-  document.querySelectorAll('.text-3xl')[2].innerText = data[role].balance;
-  document.querySelectorAll('.text-3xl')[3].innerText = data[role].teachers;
+  // Get only the 4 colored cards
+let cardNumbers = document.querySelectorAll('.bg-blue-600 .text-3xl,.bg-green-600 .text-3xl,.bg-red-600 .text-3xl,.bg-purple-600 .text-3xl');
+let cardTitles = document.querySelectorAll('.bg-blue-600 .text-sm,.bg-green-600 .text-sm,.bg-red-600 .text-sm,.bg-purple-600 .text-sm');
+  // Update numbers
+  cardNumbers[0].innerText = data[role].total;
+  cardNumbers[1].innerText = data[role].collected;
+  cardNumbers[2].innerText = data[role].balance;
+  cardNumbers[3].innerText = data[role].teachers;
 
-  // Update card titles based on role
-  document.querySelectorAll('.text-sm')[0].innerText = data[role].labels[0];
-  document.querySelectorAll('.text-sm')[1].innerText = data[role].labels[1];
-  document.querySelectorAll('.text-sm')[2].innerText = data[role].labels[2];
-  document.querySelectorAll('.text-sm')[3].innerText = data[role].labels[3];
+  // Update titles
+  cardTitles[0].innerText = data[role].labels[0];
+  cardTitles[1].innerText = data[role].labels[1];
+  cardTitles[2].innerText = data[role].labels[2];
+  cardTitles[3].innerText = data[role].labels[3];
 
   // Update welcome message
   document.getElementById('welcome').innerText = "Welcome, " + name + "!";
 }
-
+  
 // SHOW PAY BUTTON FOR STUDENT/PARENT ONLY
 if(role == 'student' || role == 'parent'){
   let btn = document.createElement('button');
