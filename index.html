@@ -371,7 +371,41 @@ section div[style*="overflow"] {
 </div>
 </div>
 </footer>
+<!-- LOGIN SECTION FOR SELF-SERVICE -->
+<section style="text-align:center; padding:80px 20px; background:#0a0a0a;">
+  <h2 style="color:#ffb35b; font-size:28px;">ThinkPlus Self-Service Portal</h2>
+  <p style="color:#e0e0e0; margin-bottom:30px;">Select your role to continue</p>
+  
+  <div>
+    <button class="login-btn" onclick="login('student')">Student Login</button>
+    <button class="login-btn" onclick="login('parent')">Parent Login</button>
+    <button class="login-btn" onclick="login('teacher')">Teacher Login</button>
+  </div>
+</section>
 
+<style>
+.login-btn {
+  padding: 15px 30px;
+  margin: 10px;
+  background: #0056D6;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 16px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: 0.3s;
+}
+.login-btn:hover { transform: scale(1.05); background: #003d99; }
+</style>
+
+<script>
+function login(role){
+  localStorage.setItem("userRole", role);
+  localStorage.setItem("userName", role.charAt(0).toUpperCase() + role.slice(1) + " Demo");
+  window.location.href = "dashboard.html";
+}
+</script>
    <script>
 window.addEventListener("load", function(){
   setTimeout(function(){
