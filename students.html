@@ -115,9 +115,15 @@
   import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
   import { getFirestore, collection, addDoc, onSnapshot, doc, deleteDoc, updateDoc } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firebase.js";
 
-  const firebaseConfig = {
-    // PASTE YOUR FIREBASE CONFIG HERE
-  };
+    const firebaseConfig = {
+  apiKey: "AIzaSyBBZxfANbz_l5vXLYu2e5vnC",
+  authDomain: "thinkplus-kilifi.firebaseapp.com",
+  projectId: "thinkplus-kilifi",
+  storageBucket: "thinkplus-kilifi.appspot.com",
+  messagingSenderId: "1067934190834",
+  appId: "1:1067934190834:web:e9b5983b220a3ad7ae146b",
+  measurementId: "G-88DV0V8N6Y"
+};
 
   const app = initializeApp(firebaseConfig);
   const db = getFirestore(app);
