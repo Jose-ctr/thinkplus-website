@@ -7,99 +7,147 @@
 </head>
 <body class="flex bg-gray-100">
 
-<!-- Mobile Menu Button -->
-<button onclick="document.querySelector('aside').classList.toggle('hidden')" 
-class="md:hidden fixed top-4 left-4 z-50 bg-gray-900 text-white p-3 rounded-lg shadow-lg">
-  ☰
-</button>
+  <!-- Mobile Menu Button -->
+  <button onclick="document.querySelector('aside').classList.toggle('hidden')" class="md:hidden fixed top-4 left-4 z-50 bg-gray-900 text-white p-2 rounded">☰</button>
 
-<!-- SIDE MENU -->
-<aside class="w-64 bg-gray-900 text-white h-screen p-4 fixed hidden md:block">
-  <div class="mb-8">
-    <h2 class="text-2xl font-bold">ThinkPlus</h2>
-    <p class="text-xs text-gray-400">Kilifi Primary</p>
-  </div>
-  <ul class="space-y-4">
-    <li><a href="dashboard.html" class="block p-2 hover:bg-gray-800 rounded">📊 Dashboard</a></li>
-    <li><a href="students.html" class="block p-2 bg-gray-800 rounded">👨‍🎓 Students</a></li>
-    <li><a href="fees.html" class="block p-2 hover:bg-gray-800 rounded">💰 Fees</a></li>
-    <li><a href="#" class="block p-2 hover:bg-gray-800 rounded">👨‍🏫 Teachers</a></li>
-  </ul>
-</aside>
+  <!-- SIDE MENU -->
+  <aside class="w-64 bg-gray-900 text-white h-screen p-6 hidden md:block">
+    <div class="mb-8">
+      <h2 class="text-2xl font-bold">ThinkPlus</h2>
+      <p class="text-xs text-gray-400">Kilifi Primary</p>
+    </div>
+    <ul class="space-y-4">
+      <li><a href="dashboard.html" class="block p-2 rounded hover:bg-gray-700">Dashboard</a></li>
+      <li><a href="students.html" class="block p-2 rounded bg-blue-600">Students</a></li>
+      <li><a href="fees.html" class="block p-2 rounded hover:bg-gray-700">Fees</a></li>
+      <li><a href="attendance.html" class="block p-2 rounded hover:bg-gray-700">Attendance</a></li>
+    </ul>
+  </aside>
 
-<!-- MAIN CONTENT -->
-<main class="flex-1 p-6 md:ml-64">
-    <<div class="flex justify-between items-center mb-4">
-  <h1 class="text-3xl font-bold">Students Management</h1>
-  <button onclick="addStudent()" class="bg-blue-500 text-white px-4 py-2 rounded-lg">+ Add Student</button>
+  <!-- MAIN CONTENT -->
+  <main class="flex-1 p-6 md:ml-64">
+    <div class="flex justify-between items-center mb-6">
+      <h1 class="text-3xl font-bold">Students</h1>
+      <button onclick="openAddModal()" class="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700">+ Add Student</button>
     </div>
 
-    <!-- STUDENTS TABLE -->
-    <div class="bg-white p-6 rounded-xl shadow">
+    <div class="bg-white rounded-lg shadow overflow-x-auto">
       <table class="w-full">
-        <thead>
-          <tr class="border-b text-left">
-            <th class="p-3">Adm No</th>
-            <th class="p-3">Name</th>
-            <th class="p-3">Class</th>
-            <th class="p-3">Fee Balance</th>
-            <th class="p-3">Marks</th>
-            <th class="p-3">Action</th>
+        <thead class="bg-gray-200">
+          <tr>
+            <th class="p-3 text-left">Adm No</th>
+            <th class="p-3 text-left">Name</th>
+            <th class="p-3 text-left">Class</th>
+            <th class="p-3 text-left">Fees Balance</th>
+            <th class="p-3 text-left">Actions</th>
           </tr>
         </thead>
-        <tbody>
-          <tr class="border-b">
-  <td class="p-3">001</td>
-  <td class="p-3">Amina Juma</td>
-  <td class="p-3">Class 8</td>
-  <td class="p-3 text-red-500">KSh 5,000</td>
-  <td class="p-3">--</td>
-  <td class="p-3 flex gap-2">
-    <button onclick="editStudent('001','Amina Juma')" class="text-blue-600 hover:underline text-sm">Edit</button>
-    <button onclick="addMarks('001','Amina Juma')" class="bg-green-600 text-white px-2 py-1 rounded text-xs">Marks</button>
-  </td>
-</tr>
-<tr class="border-b">
-  <td class="p-3">002</td>
-  <td class="p-3">John Kamau</td>
-  <td class="p-3">Class 7</td>
-  <td class="p-3 text-green-500">KSh 0</td>
-  <td class="p-3">--</td>
-  <td class="p-3 flex gap-2">
-    <button onclick="editStudent('002','John Kamau')" class="text-blue-600 hover:underline text-sm">Edit</button>
-    <button onclick="addMarks('002','John Kamau')" class="bg-green-600 text-white px-2 py-1 rounded text-xs">Marks</button>
-  </td>
-</tr>
-<tr class="border-b">
-  <td class="p-3">003</td>
-  <td class="p-3">Faith Achieng</td>
-  <td class="p-3">Class 8</td>
-  <td class="p-3 text-red-500">KSh 12,000</td>
-  <td class="p-3">--</td>
-  <td class="p-3 flex gap-2">
-    <button onclick="editStudent('003','Faith Achieng')" class="text-blue-600 hover:underline text-sm">Edit</button>
-    <button onclick="addMarks('003','Faith Achieng')" class="bg-green-600 text-white px-2 py-1 rounded text-xs">Marks</button>
-  </td>
-  </tr>
+        <tbody id="studentsBody">
+          <tr><td colspan="5" class="p-4 text-center">Loading students...</td></tr>
         </tbody>
       </table>
     </div>
   </main>
-  <script>
-function editStudent(adm, name){ 
-  let newName = prompt("Edit Name:", name); 
-  if(newName){ alert("✅ Updated: " + newName); } 
-}
-function addMarks(adm, name){ 
-  let sub = prompt("Subject for " + name); 
-  let marks = prompt("Marks out of 100:"); 
-  if(sub && marks){ alert("✅ Saved: " + name + " - " + sub + " = " + marks); }
-}
-function addStudent(){ 
-  let adm = prompt("Admission No:"); 
-  let name = prompt("Student Name:"); 
-  if(adm && name){ alert("✅ Added: " + name); location.reload(); }
-}
+
+  <!-- ADD STUDENT MODAL -->
+  <div id="addModal" class="hidden fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center">
+    <div class="bg-white p-6 rounded-lg w-96">
+      <h2 class="text-xl font-bold mb-4">Add New Student</h2>
+      <form id="studentForm" class="space-y-3">
+        <input type="text" id="adm" placeholder="Admission No" class="w-full p-2 border rounded" required>
+        <input type="text" id="name" placeholder="Student Name" class="w-full p-2 border rounded" required>
+        <input type="text" id="grade" placeholder="Class e.g Class 8" class="w-full p-2 border rounded" required>
+        <input type="text" id="phone" placeholder="Parent Phone" class="w-full p-2 border rounded" required>
+        <div class="flex gap-2">
+          <button type="submit" class="bg-blue-600 text-white px-4 py-2 rounded flex-1">Save</button>
+          <button type="button" onclick="closeAddModal()" class="bg-gray-300 px-4 py-2 rounded flex-1">Cancel</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+
+  <!-- FIREBASE CODE -->
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+    import { getFirestore, collection, addDoc, onSnapshot, query, orderBy, doc, updateDoc, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+
+    const firebaseConfig = {
+      apiKey: "AIzaSyBBzXfaNbz_l5vXlYu2e5vnC_CN6EC5FN4",
+      authDomain: "thinkplus-kilifi.firebaseapp.com",
+      projectId: "thinkplus-kilifi",
+      storageBucket: "thinkplus-kilifi.firebasestorage.app",
+      messagingSenderId: "1067934190834",
+      appId: "1:1067934190834:web:e9b5983b220a3ad7ae146b",
+      measurementId: "G-88DV0V8N6Y"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const db = getFirestore(app);
+    const studentsCol = collection(db, "students");
+
+    // 1. LOAD STUDENTS LIVE FROM FIREBASE
+    const q = query(studentsCol, orderBy("createdAt", "desc"));
+    onSnapshot(q, (snapshot) => {
+      const tbody = document.getElementById('studentsBody');
+      tbody.innerHTML = '';
+      if(snapshot.empty){
+        tbody.innerHTML = '<tr><td colspan="5" class="p-4 text-center">No students yet. Add one!</td></tr>';
+        return;
+      }
+      snapshot.forEach((docSnap) => {
+        const s = docSnap.data();
+        const id = docSnap.id;
+        const row = `
+          <tr class="border-b">
+            <td class="p-3">${s.adm || 'N/A'}</td>
+            <td class="p-3">${s.name}</td>
+            <td class="p-3">${s.grade}</td>
+            <td class="p-3 text-red-500">KSh ${s.balance || '0'}</td>
+            <td class="p-3 flex gap-2">
+              <button onclick="editStudent('${id}', '${s.name}')" class="bg-yellow-500 text-white px-2 py-1 rounded text-sm">Edit</button>
+              <button onclick="addMarks('${id}', '${s.name}')" class="bg-green-500 text-white px-2 py-1 rounded text-sm">Marks</button>
+            </td>
+          </tr>
+        `;
+        tbody.innerHTML += row;
+      });
+    });
+
+    // 2. ADD STUDENT TO FIREBASE
+    document.getElementById('studentForm').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      await addDoc(studentsCol, {
+        adm: document.getElementById('adm').value,
+        name: document.getElementById('name').value,
+        grade: document.getElementById('grade').value,
+        phone: document.getElementById('phone').value,
+        balance: 0,
+        createdAt: serverTimestamp()
+      });
+      alert('✅ Student Added!');
+      document.getElementById('studentForm').reset();
+      closeAddModal();
+    });
+
+    // 3. EDIT & MARKS FUNCTIONS NOW SAVE TO FIREBASE
+    window.editStudent = async (id, name) => {
+      let newName = prompt("Edit Name:", name);
+      if(newName){
+        await updateDoc(doc(db, "students", id), {name: newName});
+        alert("✅ Updated: " + newName);
+      }
+    }
+
+    window.addMarks = (id, name) => {
+      let sub = prompt("Subject for " + name);
+      let marks = prompt("Marks out of 100:");
+      if(sub && marks){ alert("✅ For now: " + name + " - " + sub + ": " + marks + "\nNext we will save this to Firebase too"); }
+    }
+
+    window.openAddModal = () => document.getElementById('addModal').classList.remove('hidden');
+    window.closeAddModal = () => document.getElementById('addModal').classList.add('hidden');
+
   </script>
 </body>
 </html>
