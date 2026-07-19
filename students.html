@@ -84,7 +84,7 @@
       if(confirm("Delete this student?")) {
         await deleteDoc(doc(db, "students", id));
       }
-    }6⁶66
+    }
 
     onSnapshot(studentsCol, (snapshot) => {
       const tbody = document.getElementById('studentsBody');
@@ -110,6 +110,88 @@
         `;
       });
     });
-  </script>
+  <script type="module">
+  // 1. Firebase setup
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+  import { getFirestore, collection, addDoc, onSnapshot, doc, deleteDoc, updateDoc } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firebase.js";
+
+  const firebaseConfig = {
+    // PASTE YOUR FIREBASE CONFIG HERE
+  };
+
+  const app = initializeApp(firebaseConfig);
+  const db = getFirestore(app);
+  const studentsCol = collection(db, "students");
+
+  // 2. ADD STUDENT - matches your form IDs
+  window.addStudent = async () => {
+    const adm = document.getElementById('studentAdm').value;
+    const name = document.getElementById('studentName').value;
+    const grade = document.getElementById('studentGrade').value;
+    const parentPhone = document.getElementById('parentPhone').value;
+
+    if(!adm || !name || !grade || !parentPhone) {
+      alert("Please fill all fields");
+      return;
+    }
+
+    await addDoc(studentsCol, {
+      adm, name, grade, parentPhone,
+      balance: 0,
+      createdAt: new Date()
+    });
+
+    // Clear form after adding
+    document.getElementById('studentAdm').value = "";
+    document.getElementById('studentName').value = "";
+    document.getElementById('studentGrade').value = "";
+    document.getElementById('parentPhone').value = "";
+  }
+
+  // 3. SHOW STUDENTS IN TABLE
+  onSnapshot(studentsCol, (snapshot) => {
+    const tbody = document.querySelector("#studentsTable tbody");
+    tbody.innerHTML = ""; // Clear old data
+    
+    snapshot.forEach(docSnap => {
+      const student = docSnap.data();
+      const id = docSnap.id;
+      
+      tbody.innerHTML += `
+        <tr>
+          <td>${student.adm}</td>
+          <td>${student.name}</td>
+          <td>${student.grade}</td>
+          <td>${student.parentPhone}</td>
+          <td>KSh ${student.balance || 0}</td>
+          <td>
+            <button onclick="payStudent('${id}', ${student.balance || 0})">Pay</button>
+            <button onclick="deleteStudent('${id}')">Delete</button>
+          </td>
+        </tr>
+      `;
+    });
+  });
+
+  // 4. PAY STUDENT - Manual payment
+  window.payStudent = async (id, balance) => {
+    const amount = prompt(`Enter amount to pay. Balance: KSh ${balance}`);
+    if (!amount || isNaN(amount)) return;
+    
+    alert(`Payment of KSh ${amount} recorded`);
+    
+    const studentRef = doc(db, "students", id);
+    await updateDoc(studentRef, {
+      balance: (balance - Number(amount))
+    });
+  }
+
+  // 5. DELETE STUDENT
+  window.deleteStudent = async (id) => {
+    if(confirm("Are you sure you want to delete?")) {
+      await deleteDoc(doc(db, "students", id));
+    }
+  }
+</script>
 </body>
 </html>
