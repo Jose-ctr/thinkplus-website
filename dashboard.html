@@ -71,6 +71,56 @@ new Chart(document.getElementById('feesChart'), {
     },
     options: { responsive: true }
 });
+  // GET USER ROLE
+let role = localStorage.getItem("userRole");
+let name = localStorage.getItem("userName");
+
+// SIMULATED DATA KWA KILA ROLE
+const data = {
+  student: {
+    total: 523,
+    collected: "KSh 45,000",
+    balance: "KSh 5,000",
+    teachers: 0
+  },
+  parent: {
+    total: 523,
+    collected: "KSh 40,000", 
+    balance: "KSh 10,000",
+    teachers: 0
+  },
+  teacher: {
+    total: 45, // number of students kwa class
+    collected: "KSh 0",
+    balance: "KSh 0",
+    teachers: 1
+  }
+};
+
+// UPDATE NUMBERS KWA PAGE
+if(role && data[role]){
+  document.querySelectorAll('.text-3xl')[0].innerText = data[role].total;
+  document.querySelectorAll('.text-3xl')[1].innerText = data[role].collected;
+  document.querySelectorAll('.text-3xl')[2].innerText = data[role].balance;
+  document.querySelectorAll('.text-3xl')[3].innerText = data[role].teachers;
+  
+  // Badilisha title kama ni teacher
+  if(role == 'teacher'){
+    document.querySelectorAll('.text-sm')[0].innerText = "My Students";
+    document.querySelectorAll('.text-sm')[1].innerText = "Class Collected";
+    document.querySelectorAll('.text-sm')[2].innerText = "Class Balance";
+    document.querySelectorAll('.text-sm')[3].innerText = "Me";
+  }
+}
+
+// KAMA NI STUDENT/PARENT ONYESHA BUTTON YA PAY
+if(role == 'student' || role == 'parent'){
+  let btn = document.createElement('button');
+  btn.innerText = "Pay Fees Now - M-Pesa";
+  btn.style.cssText = "padding:15px 30px; background:#0056D6; color:white; border:none; border-radius:8px; font-weight:bold; cursor:pointer; margin-top:20px;";
+  btn.onclick = function(){ alert("M-Pesa STK Push will go here"); }
+  document.querySelector('main').appendChild(btn);
+}
 </script>
 </body>
 </html>
