@@ -8,49 +8,95 @@
 <body class="flex bg-gray-100">
 
 <!-- Mobile Menu Button -->
-<button onclick="document.querySelector('aside').classList.toggle('hidden')" 
-class="md:hidden fixed top-4 left-4 z-50 bg-gray-900 text-white p-3 rounded-lg shadow-lg">
-  ☰
+<button onclick="document.querySelector('aside').classList.toggle('hidden')" class="md:hidden fixed top-4 left-4 z-50 bg-gray-900 text-white p-2 rounded">
+☰
 </button>
 
 <!-- SIDE MENU -->
-<aside class="w-64 bg-gray-900 text-white h-screen p-4 fixed hidden md:block">
+<aside class="w-64 bg-gray-900 text-white h-screen p-5 fixed">
   <div class="mb-8">
     <h2 class="text-2xl font-bold">ThinkPlus</h2>
-    <p class="text-xs text-gray-400">Kilifi Primary</p>
+    <p class="text-xs text-gray-400" id="schoolName">Kilifi Primary</p>
   </div>
   <ul class="space-y-4">
     <li><a href="dashboard.html" class="block p-2 hover:bg-gray-800 rounded">📊 Dashboard</a></li>
-    <li><a href="students.html" class="block p-2 hover:bg-gray-800 rounded">👨‍🎓 Students</a></li>
+    <li><a href="students.html" class="block p-2 hover:bg-gray-800 rounded">👨‍🏫 Students</a></li>
     <li><a href="fees.html" class="block p-2 bg-gray-800 rounded">💰 Fees</a></li>
-    <li><a href="#" class="block p-2 hover:bg-gray-800 rounded">👨‍🏫 Teachers</a></li>
+    <li><a href="#" class="block p-2 hover:bg-gray-800 rounded">👩‍🏫 Teachers</a></li>
+    <li><a href="#" class="block p-2 hover:bg-gray-800 rounded">📈 Reports</a></li>
+    <li><a href="#" onclick="logout()" class="block p-2 hover:bg-red-800 rounded mt-10">🚪 Logout</a></li>
   </ul>
 </aside>
-    
 
-  <!-- MAIN CONTENT -->
-  <main class="flex-1 p-6 md:ml-64">
-    <h1 class="text-3xl font-bold mb-6">Fees Management</h1>
+<!-- MAIN CONTENT -->
+<main class="flex-1 p-6 md:ml-64">
+  <h1 class="text-3xl font-bold mb-6">Fee Statement</h1>
+
+  <div class="bg-white p-6 rounded-xl shadow-md max-w-2xl">
+    <h2 class="font-bold text-xl mb-4" id="studentName">Loading...</h2>
     
-    <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-6">
-      <div class="bg-green-500 text-white p-6 rounded-xl">
-        <h3>Total Collected</h3><p class="text-2xl font-bold">KSh 1,250,000</p>
+    <div class="grid grid-cols-3 gap-4 mb-6">
+      <div class="bg-blue-500 text-white p-4 rounded-lg">
+        <h3>Term Fee</h3><p class="text-2xl font-bold" id="termFee">KSh 0</p>
       </div>
-      <div class="bg-red-500 text-white p-6 rounded-xl">
-        <h3>Total Balance</h3><p class="text-2xl font-bold">KSh 480,000</p>
+      <div class="bg-green-500 text-white p-4 rounded-lg">
+        <h3>Paid</h3><p class="text-2xl font-bold" id="paid">KSh 0</p>
       </div>
-      <div class="bg-blue-500 text-white p-6 rounded-xl">
-        <h3>Term Fee</h3><p class="text-2xl font-bold">KSh 10,000</p>
+      <div class="bg-red-500 text-white p-4 rounded-lg">
+        <h3>Balance</h3><p class="text-2xl font-bold" id="balance">KSh 0</p>
       </div>
     </div>
 
-    <div class="bg-white p-6 rounded-xl shadow">
-      <h2 class="font-bold mb-4">Recent Payments</h2>
-      <table class="w-full">
-        <tr class="border-b"><td class="p-3">15 Apr 2026</td><td class="p-3">Amina Juma</td><td class="p-3 text-green-600">KSh 5,000</td></tr>
-        <tr class="border-b"><td class="p-3">14 Apr 2026</td><td class="p-3">John Kamau</td><td class="p-3 text-green-600">KSh 10,000</td></tr>
-      </table>
-    </div>
-  </main>
+    <button onclick="payFees()" id="payBtn" class="w-full bg-blue-600 text-white py-3 rounded-lg font-bold text-lg hidden">
+      Pay Now via M-PESA
+    </button>
+    <p class="text-xs text-gray-500 mt-2">You will receive an M-PESA prompt on your phone</p>
+  </div>
+
+  <div class="bg-white p-6 rounded-xl shadow-md mt-6">
+    <h2 class="font-bold mb-4">Recent Payments</h2>
+    <table class="w-full">
+      <tr class="border-b"><td class="p-3">15 Jan 2026</td><td class="p-3 text-right">KSh 20,000</td></tr>
+      <tr class="border-b"><td class="p-3">02 Feb 2026</td><td class="p-3 text-right">KSh 20,000</td></tr>
+    </table>
+  </div>
+</main>
+
+<script>
+// CHECK LOGIN
+let name = localStorage.getItem('userName');
+let role = localStorage.getItem('userRole');
+let school = localStorage.getItem('userSchool');
+
+if(!name){
+  window.location.href = "index.html";
+} else {
+  document.getElementById('studentName').innerText = name + " - Fee Statement";
+  document.getElementById('schoolName').innerText = school;
+  
+  // Load data
+  document.getElementById('termFee').innerText = "KSh 50,000";
+  document.getElementById('paid').innerText = "KSh 40,000";
+  document.getElementById('balance').innerText = "KSh 10,000";
+  
+  // Show Pay button for Student/Parent only
+  if(role == 'student' || role == 'parent'){
+    document.getElementById('payBtn').classList.remove('hidden');
+  }
+}
+
+function payFees(){
+  let phone = prompt("Enter M-PESA Number e.g 0712345678");
+  if(phone){
+    let bal = document.getElementById('balance').innerText;
+    alert("STK Push sent to " + phone + "\nPay " + bal + " to complete fees");
+  }
+}
+
+function logout(){
+  localStorage.clear();
+  window.location.href = "index.html";
+}
+</script>
 </body>
 </html>
