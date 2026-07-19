@@ -38,12 +38,13 @@
             <th class="p-3 text-left">Adm No</th>
             <th class="p-3 text-left">Name</th>
             <th class="p-3 text-left">Class</th>
+            <th class="p-3 text-left">Phone</th>
             <th class="p-3 text-left">Fees Balance</th>
             <th class="p-3 text-left">Actions</th>
           </tr>
         </thead>
         <tbody id="studentsBody">
-          <tr><td colspan="5" class="p-4 text-center">Loading students...</td></tr>
+          <tr><td colspan="6" class="p-4 text-center">Loading students...</td></tr>
         </tbody>
       </table>
     </div>
@@ -92,23 +93,25 @@
       const tbody = document.getElementById('studentsBody');
       tbody.innerHTML = '';
       if(snapshot.empty){
-        tbody.innerHTML = '<tr><td colspan="5" class="p-4 text-center">No students yet. Add one!</td></tr>';
+        tbody.innerHTML = '<tr><td colspan="6" class="p-4 text-center">No students yet. Add one!</td></tr>';
         return;
       }
       snapshot.forEach((docSnap) => {
         const s = docSnap.data();
         const id = docSnap.id;
-        const row = `
-          <tr class="border-b">
-            <td class="p-3">${s.adm || 'N/A'}</td>
-            <td class="p-3">${s.name}</td>
-            <td class="p-3">${s.grade}</td>
-            <td class="p-3 text-red-500">KSh ${s.balance || '0'}</td>
-            <td class="p-3 flex gap-2">
-              <button onclick="editStudent('${id}', '${s.name}')" class="bg-yellow-500 text-white px-2 py-1 rounded text-sm">Edit</button>
-              <button onclick="addMarks('${id}', '${s.name}')" class="bg-green-500 text-white px-2 py-1 rounded text-sm">Marks</button>
-            </td>
-          </tr>
+       const row = `
+  <tr class="border-b">
+    <td class="p-3">${s.adm || 'N/A'}</td>
+    <td class="p-3">${s.name}</td>
+    <td class="p-3">${s.grade}</td>
+    <td class="p-3">${s.phone || '-'}</td>  <!-- ADD THIS LINE -->
+    <td class="p-3 text-red-500">KSh ${s.balance || '0'}</td>
+    <td class="p-3 flex gap-2">
+      <button onclick="editStudent('${id}', '${s.name}', '${s.phone || ''}')" class="bg-yellow-500 text-white px-2 py-1 rounded">Edit</button>
+      <button onclick="addMarks('${id}', '${s.name}')" class="bg-green-500 text-white px-2 py-1 rounded">Marks</button>
+    </td>
+  </tr>
+`;
         `;
         tbody.innerHTML += row;
       });
@@ -131,12 +134,18 @@
     });
 
     // 3. EDIT & MARKS FUNCTIONS NOW SAVE TO FIREBASE
-    window.editStudent = async (id, name) => {
-      let newName = prompt("Edit Name:", name);
-      if(newName){
-        await updateDoc(doc(db, "students", id), {name: newName});
-        alert("✅ Updated: " + newName);
-      }
+  window.editStudent = async (id, name, phone) => {
+  let newName = prompt("Edit Name:", name);
+  let newPhone = prompt("Edit Phone:", phone || '');
+   
+  if(newName !== null && newPhone !== null){
+    await updateDoc(doc(db, "students", id), {
+      name: newName,
+      phone: newPhone
+    });
+    alert("✅ Updated: " + newName);
+  }
+  } 
     }
 
     window.addMarks = (id, name) => {
