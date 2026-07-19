@@ -71,7 +71,7 @@
   <!-- FIREBASE CODE -->
   <script type="module">
     import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
-    import { getFirestore, collection, addDoc, onSnapshot, query, orderBy, doc, updateDoc, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+    import { getFirestore, collection, addDoc, onSnapshot, query, orderBy, doc, updateDoc, deleteDoc } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
 
     const firebaseConfig = {
       apiKey: "AIzaSyBBzXfaNbz_l5vXlYu2e5vnC_CN6EC5FN4",
@@ -84,6 +84,57 @@
     };
 
     const app = initializeApp(firebaseConfig);
+    const db = getFirestore(app);
+// 1. LOAD STUDENTS LIVE FROM FIREBASE
+const tbody = document.getElementById("studentsBody");
+const studentsCol = collection(db, "students");
+const q = query(studentsCol, orderBy("createdAt", "desc"));
+
+onSnapshot(q, (snapshot) => {
+  tbody.innerHTML = ""; // Clear "Loading..."
+  
+  if(snapshot.empty){
+    tbody.innerHTML = '<tr><td colspan="6" class="p-4 text-center">No students yet. Add one!</td></tr>';
+    return;
+  }
+
+  snapshot.forEach((docSnap) => {
+    const s = docSnap.data();
+    const id = docSnap.id;
+    tbody.innerHTML += `
+      <tr class="border-b">
+        <td class="p-3">${s.adm || 'N/A'}</td>
+        <td class="p-3">${s.name}</td>
+        <td class="p-3">${s.grade}</td>
+        <td class="p-3">${s.phone || '-'}</td>
+        <td class="p-3 text-red-500 font-bold">KSh ${s.balance || 0}</td>
+        <td class="p-3">
+          <button onclick="editStudent('${id}', '${s.name}', '${s.phone}')" class="text-blue-500 mr-3">Edit</button>
+          <button onclick="deleteStudent('${id}')" class="text-red-500">Delete</button>
+        </td>
+      </tr>
+    `;
+  });
+});
+
+// 2. EDIT FUNCTION
+window.editStudent = async (id, name, phone) => {
+  let newName = prompt("Edit Name:", name);
+  let newPhone = prompt("Edit Phone:", phone || '');
+  if(newName !== null && newPhone !== null){
+    await updateDoc(doc(db, "students", id), { name: newName, phone: newPhone });
+    alert("✅ Updated: " + newName);
+    location.reload();
+  }
+};
+
+// 3. DELETE FUNCTION  
+window.deleteStudent = async (id) => {
+  if(confirm("Delete this student?")){
+    await deleteDoc(doc(db, "students", id));
+    location.reload();
+  }
+};
     const db = getFirestore(app);
     const studentsCol = collection(db, "students");
 
@@ -133,6 +184,38 @@
       closeAddModal();
     });
 
+  // 2. LOAD STUDENTS FROM FIREBASE
+  import { collection, getDocs, deleteDoc } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
+  
+  const tbody = document.querySelector("tbody");
+  const snap = await getDocs(collection(db, "students"));
+  
+  tbody.innerHTML = ""; // Futa "Loading..."
+  
+  snap.forEach(docSnap => {
+    const s = docSnap.data();
+    tbody.innerHTML += `
+      <tr class="border-b">
+        <td class="p-2">${s.adm}</td>
+        <td class="p-2">${s.name}</td>
+        <td class="p-2">${s.class}</td>
+        <td class="p-2">${s.phone || ''}</td>
+        <td class="p-2">KSh ${s.balance || 0}</td>
+        <td class="p-2">
+          <button onclick="editStudent('${docSnap.id}', '${s.name}', '${s.phone}')" class="text-blue-500">Edit</button>
+          <button onclick="deleteStudent('${docSnap.id}')" class="text-red-500 ml-2">Delete</button>
+        </td>
+      </tr>
+    `;
+  });
+
+  // DELETE FUNCTION
+  window.deleteStudent = async (id) => {
+    if(confirm("Delete this student?")){
+      await deleteDoc(doc(db, "students", id));
+      location.reload();
+    }
+  };
     // 3. EDIT & MARKS FUNCTIONS NOW SAVE TO FIREBASE
   window.editStudent = async (id, name, phone) => {
   let newName = prompt("Edit Name:", name);
@@ -148,11 +231,21 @@
   } 
     }
 
-    window.addMarks = (id, name) => {
-      let sub = prompt("Subject for " + name);
-      let marks = prompt("Marks out of 100:");
-      if(sub && marks){ alert("✅ For now: " + name + " - " + sub + ": " + marks + "\nNext we will save this to Firebase too"); }
-    }
+   window.addMarks = async (id, name) => {
+  let sub = prompt("Subject for " + name);
+  let marks = prompt("Marks out of 100:");
+  
+  if(sub && marks){
+    await addDoc(collection(db, "marks"), {
+      studentId: id,
+      studentName: name,
+      subject: sub,
+      score: Number(marks),
+      date: new Date()
+    });
+    alert(`✅ Marks added! ${name} - ${sub}: ${marks}/100`);
+  }
+    } 
 
     window.openAddModal = () => document.getElementById('addModal').classList.remove('hidden');
     window.closeAddModal = () => document.getElementById('addModal').classList.add('hidden');
