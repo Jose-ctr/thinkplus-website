@@ -1,80 +1,55 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-  <meta charset="UTF-8">
-  <title>Students - ThinkPlus</title>
-  <script src="https://cdn.tailwindcss.com"></script>
+  <title>ThinkPlus - Students</title>
+  <style>
+    body { font-family: Arial; padding: 20px; background: #f5f5f5; }
+    .container { max-width: 1000px; margin: auto; background: white; padding: 20px; border-radius: 8px; }
+    input { padding: 10px; margin: 5px; width: 200px; border: 1px solid #ccc; border-radius: 4px; }
+    button { padding: 10px 15px; background: #4CAF50; color: white; border: none; border-radius: 4px; cursor: pointer; }
+    button.delete { background: #f44336; }
+    table { width: 100%; border-collapse: collapse; margin-top: 20px; }
+    th, td { border: 1px solid #ddd; padding: 10px; text-align: left; }
+    th { background: #4CAF50; color: white; }
+    h1 { color: #333; }
+  </style>
 </head>
-<body class="flex bg-gray-100">
+<body>
+  <div class="container">
+    <h1>ThinkPlus School - Students</h1>
 
-  <!-- Mobile Menu Button -->
-  <button onclick="document.querySelector('aside').classList.toggle('hidden')" class="md:hidden fixed top-4 left-4 z-50 bg-gray-900 text-white p-2 rounded">☰</button>
+    <h3>Add New Student</h3>
+    <input id="studentAdm" placeholder="ADM No" />
+    <input id="studentName" placeholder="Full Name" />
+    <input id="studentGrade" placeholder="Grade e.g. Form 4" />
+    <input id="parentPhone" placeholder="Parent Phone e.g. 0798765432" />
+    <button onclick="addStudent()">Add Student</button>
 
-  <!-- SIDE MENU -->
-  <aside class="w-64 bg-gray-900 text-white h-screen p-6 hidden md:block">
-    <div class="mb-8">
-      <h2 class="text-2xl font-bold">ThinkPlus</h2>
-      <p class="text-xs text-gray-400">Kilifi Primary</p>
-    </div>
-    <ul class="space-y-4">
-      <li><a href="dashboard.html" class="block p-2 rounded hover:bg-gray-700">Dashboard</a></li>
-      <li><a href="students.html" class="block p-2 rounded bg-blue-600">Students</a></li>
-      <li><a href="fees.html" class="block p-2 rounded hover:bg-gray-700">Fees</a></li>
-      <li><a href="attendance.html" class="block p-2 rounded hover:bg-gray-700">Attendance</a></li>
-    </ul>
-  </aside>
-
-  <!-- MAIN CONTENT -->
-  <main class="flex-1 p-6 md:ml-64">
-    <div class="flex justify-between items-center mb-6">
-      <h1 class="text-3xl font-bold">Students</h1>
-      <button onclick="openAddModal()" class="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700">+ Add Student</button>
-    </div>
-
-    <div class="bg-white rounded-lg shadow overflow-x-auto">
-      <table class="w-full">
-        <thead class="bg-gray-200">
-          <tr>
-            <th class="p-3 text-left">Adm No</th>
-            <th class="p-3 text-left">Name</th>
-            <th class="p-3 text-left">Class</th>
-            <th class="p-3 text-left">Phone</th>
-            <th class="p-3 text-left">Fees Balance</th>
-            <th class="p-3 text-left">Actions</th>
-          </tr>
-        </thead>
-        <tbody id="studentsBody">
-          <tr><td colspan="6" class="p-4 text-center">Loading students...</td></tr>
-        </tbody>
-      </table>
-    </div>
-  </main>
-
-  <!-- ADD STUDENT MODAL -->
-  <div id="addModal" class="hidden fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center">
-    <div class="bg-white p-6 rounded-lg w-96">
-      <h2 class="text-xl font-bold mb-4">Add New Student</h2>
-      <form id="studentForm" class="space-y-3">
-        <input type="text" id="adm" placeholder="Admission No" class="w-full p-2 border rounded" required>
-        <input type="text" id="name" placeholder="Student Name" class="w-full p-2 border rounded" required>
-        <input type="text" id="grade" placeholder="Class e.g Class 8" class="w-full p-2 border rounded" required>
-        <input type="text" id="phone" placeholder="Parent Phone" class="w-full p-2 border rounded" required>
-        <div class="flex gap-2">
-          <button type="submit" class="bg-blue-600 text-white px-4 py-2 rounded flex-1">Save</button>
-          <button type="button" onclick="closeAddModal()" class="bg-gray-300 px-4 py-2 rounded flex-1">Cancel</button>
-        </div>
-      </form>
-    </div>
+    <table id="studentsTable">
+      <thead>
+        <tr>
+          <th>ADM</th>
+          <th>Name</th>
+          <th>Grade</th>
+          <th>Parent Phone</th>
+          <th>Balance</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody id="studentsBody">
+        <tr><td colspan="6">Loading students...</td></tr>
+      </tbody>
+    </table>
   </div>
 
-
-  <!-- FIREBASE CODE -->
   <script type="module">
     import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
-    import { getFirestore, collection, addDoc, onSnapshot, query, orderBy, doc, updateDoc, deleteDoc } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
+    import { getFirestore, collection, addDoc, deleteDoc, doc, onSnapshot } 
+    from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
 
+    // YOUR FIREBASE CONFIG - thinkplus-kilifi
     const firebaseConfig = {
-      apiKey: "AIzaSyBBzXfaNbz_l5vXlYu2e5vnC_CN6EC5FN4",
+      apiKey: "AIzaSyBBzXfaNbz_l5vXLYu2e5vnC_CN6EC5FN4",
       authDomain: "thinkplus-kilifi.firebaseapp.com",
       projectId: "thinkplus-kilifi",
       storageBucket: "thinkplus-kilifi.firebasestorage.app",
@@ -85,171 +60,56 @@
 
     const app = initializeApp(firebaseConfig);
     const db = getFirestore(app);
-// 1. LOAD STUDENTS LIVE FROM FIREBASE
-const tbody = document.getElementById("studentsBody");
-const studentsCol = collection(db, "students");
-const q = query(studentsCol, orderBy("createdAt", "desc"));
-
-onSnapshot(q, (snapshot) => {
-  tbody.innerHTML = ""; // Clear "Loading..."
-  
-  if(snapshot.empty){
-    tbody.innerHTML = '<tr><td colspan="6" class="p-4 text-center">No students yet. Add one!</td></tr>';
-    return;
-  }
-
-  snapshot.forEach((docSnap) => {
-    const s = docSnap.data();
-    const id = docSnap.id;
-    tbody.innerHTML += `
-      <tr class="border-b">
-        <td class="p-3">${s.adm || 'N/A'}</td>
-        <td class="p-3">${s.name}</td>
-        <td class="p-3">${s.grade}</td>
-        <td class="p-3">${s.phone || '-'}</td>
-        <td class="p-3 text-red-500 font-bold">KSh ${s.balance || 0}</td>
-        <td class="p-3">
-          <button onclick="editStudent('${id}', '${s.name}', '${s.phone}')" class="text-blue-500 mr-3">Edit</button>
-          <button onclick="deleteStudent('${id}')" class="text-red-500">Delete</button>
-        </td>
-      </tr>
-    `;
-  });
-});
-
-// 2. EDIT FUNCTION
-window.editStudent = async (id, name, phone) => {
-  let newName = prompt("Edit Name:", name);
-  let newPhone = prompt("Edit Phone:", phone || '');
-  if(newName !== null && newPhone !== null){
-    await updateDoc(doc(db, "students", id), { name: newName, phone: newPhone });
-    alert("✅ Updated: " + newName);
-    location.reload();
-  }
-};
-
-// 3. DELETE FUNCTION  
-window.deleteStudent = async (id) => {
-  if(confirm("Delete this student?")){
-    await deleteDoc(doc(db, "students", id));
-    location.reload();
-  }
-};
-    const db = getFirestore(app);
     const studentsCol = collection(db, "students");
 
-    // 1. LOAD STUDENTS LIVE FROM FIREBASE
-    const q = query(studentsCol, orderBy("createdAt", "desc"));
-    onSnapshot(q, (snapshot) => {
+    window.addStudent = async function() {
+      const adm = document.getElementById('studentAdm').value;
+      const name = document.getElementById('studentName').value;
+      const grade = document.getElementById('studentGrade').value;
+      const parentPhone = document.getElementById('parentPhone').value;
+
+      if(!adm || !name || !parentPhone) { alert("ADM, Name and Parent Phone are required"); return; }
+
+      await addDoc(studentsCol, {
+        adm, name, grade, parentPhone, balance: 0
+      });
+      
+      document.getElementById('studentAdm').value = '';
+      document.getElementById('studentName').value = '';
+      document.getElementById('studentGrade').value = '';
+      document.getElementById('parentPhone').value = '';
+    }
+
+    window.deleteStudent = async function(id) {
+      if(confirm("Delete this student?")) {
+        await deleteDoc(doc(db, "students", id));
+      }
+    }
+
+    onSnapshot(studentsCol, (snapshot) => {
       const tbody = document.getElementById('studentsBody');
       tbody.innerHTML = '';
-      if(snapshot.empty){
-        tbody.innerHTML = '<tr><td colspan="6" class="p-4 text-center">No students yet. Add one!</td></tr>';
+      
+      if(snapshot.empty) {
+        tbody.innerHTML = '<tr><td colspan="6">No students yet. Add one above.</td></tr>';
         return;
       }
+
       snapshot.forEach((docSnap) => {
-        const s = docSnap.data();
+        const student = docSnap.data();
         const id = docSnap.id;
-       const row = `
-  <tr class="border-b">
-    <td class="p-3">${s.adm || 'N/A'}</td>
-    <td class="p-3">${s.name}</td>
-    <td class="p-3">${s.grade}</td>
-    <td class="p-3">${s.phone || '-'}</td>  <!-- ADD THIS LINE -->
-    <td class="p-3 text-red-500">KSh ${s.balance || '0'}</td>
-    <td class="p-3 flex gap-2">
-      <button onclick="editStudent('${id}', '${s.name}', '${s.phone || ''}')" class="bg-yellow-500 text-white px-2 py-1 rounded">Edit</button>
-      <button onclick="addMarks('${id}', '${s.name}')" class="bg-green-500 text-white px-2 py-1 rounded">Marks</button>
-    </td>
-  </tr>
-`;
+        tbody.innerHTML += `
+          <tr>
+            <td>${student.adm}</td>
+            <td>${student.name}</td>
+            <td>${student.grade}</td>
+            <td>${student.parentPhone || '-'}</td>
+            <td>KSh ${student.balance}</td>
+            <td><button class="delete" onclick="deleteStudent('${id}')">Delete</button></td>
+          </tr>
         `;
-        tbody.innerHTML += row;
       });
     });
-
-    // 2. ADD STUDENT TO FIREBASE
-    document.getElementById('studentForm').addEventListener('submit', async (e) => {
-      e.preventDefault();
-      await addDoc(studentsCol, {
-        adm: document.getElementById('adm').value,
-        name: document.getElementById('name').value,
-        grade: document.getElementById('grade').value,
-        phone: document.getElementById('phone').value,
-        balance: 0,
-        createdAt: serverTimestamp()
-      });
-      alert('✅ Student Added!');
-      document.getElementById('studentForm').reset();
-      closeAddModal();
-    });
-
-  // 2. LOAD STUDENTS FROM FIREBASE
-  import { collection, getDocs, deleteDoc } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
-  
-  const tbody = document.querySelector("tbody");
-  const snap = await getDocs(collection(db, "students"));
-  
-  tbody.innerHTML = ""; // Futa "Loading..."
-  
-  snap.forEach(docSnap => {
-    const s = docSnap.data();
-    tbody.innerHTML += `
-      <tr class="border-b">
-        <td class="p-2">${s.adm}</td>
-        <td class="p-2">${s.name}</td>
-        <td class="p-2">${s.class}</td>
-        <td class="p-2">${s.phone || ''}</td>
-        <td class="p-2">KSh ${s.balance || 0}</td>
-        <td class="p-2">
-          <button onclick="editStudent('${docSnap.id}', '${s.name}', '${s.phone}')" class="text-blue-500">Edit</button>
-          <button onclick="deleteStudent('${docSnap.id}')" class="text-red-500 ml-2">Delete</button>
-        </td>
-      </tr>
-    `;
-  });
-
-  // DELETE FUNCTION
-  window.deleteStudent = async (id) => {
-    if(confirm("Delete this student?")){
-      await deleteDoc(doc(db, "students", id));
-      location.reload();
-    }
-  };
-    // 3. EDIT & MARKS FUNCTIONS NOW SAVE TO FIREBASE
-  window.editStudent = async (id, name, phone) => {
-  let newName = prompt("Edit Name:", name);
-  let newPhone = prompt("Edit Phone:", phone || '');
-   
-  if(newName !== null && newPhone !== null){
-    await updateDoc(doc(db, "students", id), {
-      name: newName,
-      phone: newPhone
-    });
-    alert("✅ Updated: " + newName);
-  }
-  } 
-    }
-
-   window.addMarks = async (id, name) => {
-  let sub = prompt("Subject for " + name);
-  let marks = prompt("Marks out of 100:");
-  
-  if(sub && marks){
-    await addDoc(collection(db, "marks"), {
-      studentId: id,
-      studentName: name,
-      subject: sub,
-      score: Number(marks),
-      date: new Date()
-    });
-    alert(`✅ Marks added! ${name} - ${sub}: ${marks}/100`);
-  }
-    } 
-
-    window.openAddModal = () => document.getElementById('addModal').classList.remove('hidden');
-    window.closeAddModal = () => document.getElementById('addModal').classList.add('hidden');
-
   </script>
 </body>
 </html>
