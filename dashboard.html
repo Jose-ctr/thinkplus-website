@@ -71,56 +71,65 @@ new Chart(document.getElementById('feesChart'), {
     },
     options: { responsive: true }
 });
-  // GET USER ROLE
+
+// GET USER ROLE FROM LOGIN
 let role = localStorage.getItem("userRole");
 let name = localStorage.getItem("userName");
 
-// SIMULATED DATA KWA KILA ROLE
+// Redirect to login if no role found
+if(!role){
+  window.location.href = "index.html";
+}
+
+// SIMULATED DATA FOR EACH ROLE
 const data = {
   student: {
     total: 523,
     collected: "KSh 45,000",
     balance: "KSh 5,000",
-    teachers: 0
+    teachers: 0,
+    labels: ["Total Students", "My Fees Collected", "My Fee Balance", "Total Teachers"]
   },
   parent: {
     total: 523,
-    collected: "KSh 40,000", 
+    collected: "KSh 40,000",
     balance: "KSh 10,000",
-    teachers: 0
+    teachers: 0,
+    labels: ["Total Students", "Child's Fees Collected", "Child's Fee Balance", "Total Teachers"]
   },
   teacher: {
-    total: 45, // number of students kwa class
+    total: 45, // number of students in class
     collected: "KSh 0",
     balance: "KSh 0",
-    teachers: 1
+    teachers: 1,
+    labels: ["My Students", "Class Collected", "Class Balance", "Me"]
   }
 };
 
-// UPDATE NUMBERS KWA PAGE
+// UPDATE NUMBERS ON PAGE
 if(role && data[role]){
   document.querySelectorAll('.text-3xl')[0].innerText = data[role].total;
   document.querySelectorAll('.text-3xl')[1].innerText = data[role].collected;
   document.querySelectorAll('.text-3xl')[2].innerText = data[role].balance;
   document.querySelectorAll('.text-3xl')[3].innerText = data[role].teachers;
-  
-  // Badilisha title kama ni teacher
-  if(role == 'teacher'){
-    document.querySelectorAll('.text-sm')[0].innerText = "My Students";
-    document.querySelectorAll('.text-sm')[1].innerText = "Class Collected";
-    document.querySelectorAll('.text-sm')[2].innerText = "Class Balance";
-    document.querySelectorAll('.text-sm')[3].innerText = "Me";
-  }
+
+  // Update card titles based on role
+  document.querySelectorAll('.text-sm')[0].innerText = data[role].labels[0];
+  document.querySelectorAll('.text-sm')[1].innerText = data[role].labels[1];
+  document.querySelectorAll('.text-sm')[2].innerText = data[role].labels[2];
+  document.querySelectorAll('.text-sm')[3].innerText = data[role].labels[3];
+
+  // Update welcome message
+  document.getElementById('welcome').innerText = "Welcome, " + name + "!";
 }
 
-// KAMA NI STUDENT/PARENT ONYESHA BUTTON YA PAY
+// SHOW PAY BUTTON FOR STUDENT/PARENT ONLY
 if(role == 'student' || role == 'parent'){
   let btn = document.createElement('button');
   btn.innerText = "Pay Fees Now - M-Pesa";
   btn.style.cssText = "padding:15px 30px; background:#0056D6; color:white; border:none; border-radius:8px; font-weight:bold; cursor:pointer; margin-top:20px;";
   btn.onclick = function(){ alert("M-Pesa STK Push will go here"); }
   document.querySelector('main').appendChild(btn);
-}
-</script>
+  }</script>
 </body>
 </html>
