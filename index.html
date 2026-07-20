@@ -434,11 +434,40 @@ function login(role){
 }
 </script>
    <script>
+<script>
+let currentSlide = 0;
+const slides = document.querySelector('.slides');
+const totalSlides = document.querySelectorAll('.slide').length;
+
+function showSlide(index) {
+  if (index >= totalSlides) currentSlide = 0;
+  if (index < 0) currentSlide = totalSlides - 1;
+  slides.style.transform = `translateX(${-currentSlide * 100}%)`;
+}
+
+document.querySelector('.next').addEventListener('click', () => {
+  currentSlide++;
+  showSlide(currentSlide);
+});
+
+document.querySelector('.prev').addEventListener('click', () => {
+  currentSlide--;
+  showSlide(currentSlide);
+});
+
+// Auto slide every 4 seconds
+setInterval(() => {
+  currentSlide++;
+  showSlide(currentSlide);
+}, 4000);
+     </script>
+    <script>
 window.addEventListener("load", function(){
   setTimeout(function(){
     document.getElementById("loader").style.display = "none";
-  }, 2000); // hides after 2 seconds
+  }, 2000);
 });
-</script> 
-    </body>
+</script>
+
+</body>
   </html>
