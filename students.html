@@ -112,7 +112,7 @@
     });
   <script type="module">
   // 1. Firebase setup
-  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+ import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
 import { getFirestore, collection, addDoc, onSnapshot, doc, deleteDoc, updateDoc } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
 
     const firebaseConfig = {
@@ -131,7 +131,7 @@ import { getFirestore, collection, addDoc, onSnapshot, doc, deleteDoc, updateDoc
 
   // 2. ADD STUDENT - matches your form IDs
   window.addStudent = async () => {
-    const adm = document.getElementById('studentAdm').value;
+  const adm = document.getElementById('studentAdm').value;
 const name = document.getElementById('studentName').value;
 const grade = document.getElementById('studentGrade').value;
 const parentPhone = document.getElementById('parentPhone').value;
